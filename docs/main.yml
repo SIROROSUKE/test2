@@ -1,0 +1,18 @@
+name: Process File Changes
+
+on:
+  push:
+    paths:
+      - 'data.txt'
+
+jobs:
+  process-changes:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Log changes
+      run: |
+        git diff --name-only ${{ github.event.before }} ${{ github.sha }} | grep 'data.txt' && echo "File changed"
