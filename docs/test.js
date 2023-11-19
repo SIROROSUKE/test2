@@ -1,3 +1,5 @@
+// test.js
+
 function readFile() {
     fetch('data.txt')
         .then(response => response.text())
@@ -8,18 +10,17 @@ function readFile() {
         .catch(error => console.error('Error reading the file:', error));
 }
 
-
-function writeToFile() {
-    // ファイル書き込み処理
-    const textToWrite = document.getElementById('inputText').value;
-
-    fetch('data.txt', {
-        method: 'PUT',
+function writeFile() {
+    const inputText = document.getElementById('inputText').value;
+    
+    fetch('write.php', {
+        method: 'POST',
         headers: {
-            'Content-Type': 'text/plain',
+            'Content-Type': 'application/json',
         },
-        body: textToWrite,
+        body: JSON.stringify({ content: inputText }),
     })
-    .then(() => console.log('File written successfully'))
-    .catch(error => console.error('Error writing to the file:', error));
+    .then(response => response.json())
+    .then(data => console.log('File written:', data))
+    .catch(error => console.error('Error writing the file:', error));
 }
