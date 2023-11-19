@@ -1,12 +1,13 @@
 function readFile() {
-    // ファイル読み込み処理
     fetch('data.txt')
         .then(response => response.text())
         .then(data => {
+            console.log('File content:', data);
             document.getElementById('output').innerText = data;
         })
         .catch(error => console.error('Error reading the file:', error));
 }
+
 
 function writeToFile() {
     // ファイル書き込み処理
